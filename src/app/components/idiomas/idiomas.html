@@ -1,1 +1,22 @@
-<p>idiomas works!</p>
+<section id="idiomas" class="container py-5">
+    <div class="text-center mb-4">
+        <span class="eyebrow">Lo que enseñamos</span>
+        <h2>Nuestros idiomas</h2>
+    </div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+        @for (idioma of listaIdiomas; track idioma.id) {
+        <div class="col">
+            <a href="#cursos" class="text-decoration-none text-dark">
+                <div class="card h-100 text-center shadow-sm hover-card">
+                    <div class="card-body">
+                        <div class="saludo-grande">{{idioma.saludo}}</div>
+                        <h5 class="card-title mt-2">{{idioma.nombre}}</h5>
+                        <p class="card-text text-muted">{{idioma.descripcion}}</p>
+                        <span class="fw-bold text-primary">Ver cursos →</span>
+                    </div>
+                </div>
+            </a>
+        </div>
+        }
+    </div>
+</section>

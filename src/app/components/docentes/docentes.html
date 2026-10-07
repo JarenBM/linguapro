@@ -1,1 +1,26 @@
-<p>docentes works!</p>
+<section id="docentes" class="container py-5">
+    <div class="text-center mb-4">
+        <span class="eyebrow">Nuestro equipo</span>
+        <h2>Docentes</h2>
+        <p class="text-muted">Profesores certificados con experiencia internacional</p>
+    </div>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
+        @for (docente of listaDocentes; track docente.id) {
+        <div class="col">
+            <div class="card h-100 text-center shadow-sm hover-card">
+                <div class="card-body">
+                    <img [src]="docente.foto" [alt]="docente.nombre" class="avatar mb-3">
+                    <h5 class="card-title">{{docente.nombre}}</h5>
+                    <div class="mb-2">
+                        @for (idioma of docente.idiomas; track $index) {
+                        <span class="badge bg-primary me-1">{{idioma}}</span>
+                        }
+                    </div>
+                    <p class="card-text mb-1">{{docente.especialidad}}</p>
+                    <small class="text-muted">{{docente.experiencia}} años de experiencia</small>
+                </div>
+            </div>
+        </div>
+        }
+    </div>
+</section>

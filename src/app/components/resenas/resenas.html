@@ -1,1 +1,84 @@
-<p>resenas works!</p>
+<section id="resenas" class="container py-5">
+    <div class="text-center mb-4">
+        <span class="eyebrow">Opiniones</span>
+        <h2>Lo que dicen nuestros estudiantes</h2>
+    </div>
+
+    <div class="row g-4">
+        <div class="col-lg-5">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title mb-3">Deja tu reseña</h4>
+                    <form class="row g-3" (submit)="guardarResena($event)">
+                        <div class="col-12">
+                            <label for="nombre" class="form-label">Nombre</label>
+                            <input type="text" id="nombre" class="form-control" [formField]="resenaFormulario.nombre">
+                            @if (resenaFormulario.nombre().touched()&& resenaFormulario.nombre().invalid()) {
+                            @for (e of resenaFormulario.nombre().errors(); track $index) {
+                            <span class="text-danger">{{e.message}}</span>
+                            }
+                            }
+                        </div>
+
+                        <div class="col-12">
+                            <label for="curso" class="form-label">Curso</label>
+                            <input type="text" id="curso" class="form-control" list="listaCursos" [formField]="resenaFormulario.curso">
+                            <datalist id="listaCursos">
+                                @for (c of listaCursos; track c.id) {
+                                <option [value]="c.nombre"></option>
+                                }
+                            </datalist>
+                            @if (resenaFormulario.curso().touched()&& resenaFormulario.curso().invalid()) {
+                            @for (e of resenaFormulario.curso().errors(); track $index) {
+                            <span class="text-danger">{{e.message}}</span>
+                            }
+                            }
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="valoracion" class="form-label">Valoración (1 a 5)</label>
+                            <input type="number" id="valoracion" class="form-control" [formField]="resenaFormulario.valoracion">
+                            @if (resenaFormulario.valoracion().touched()&& resenaFormulario.valoracion().invalid()) {
+                            @for (e of resenaFormulario.valoracion().errors(); track $index) {
+                            <span class="text-danger">{{e.message}}</span>
+                            }
+                            }
+                        </div>
+
+                        <div class="col-12">
+                            <label for="comentario" class="form-label">Comentario</label>
+                            <textarea id="comentario" rows="3" class="form-control" [formField]="resenaFormulario.comentario"></textarea>
+                            @if (resenaFormulario.comentario().touched()&& resenaFormulario.comentario().invalid()) {
+                            @for (e of resenaFormulario.comentario().errors(); track $index) {
+                            <span class="text-danger d-block">{{e.message}}</span>
+                            }
+                            }
+                        </div>
+
+                        <div class="col-12">
+                            <button class="btn btn-primary w-100" type="submit"
+                                [disabled]="resenaFormulario.nombre().invalid() || resenaFormulario.curso().invalid() || resenaFormulario.valoracion().invalid() || resenaFormulario.comentario().invalid()">Guardar reseña</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7">
+            @for (resena of listaResenas; track $index) {
+            <div class="card shadow-sm mb-3 hover-card">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start flex-wrap">
+                        <h5 class="card-title mb-1">{{resena.nombre}}</h5>
+                        <span class="text-warning fs-5">{{estrellas(resena.valoracion)}}</span>
+                    </div>
+                    <span class="badge bg-primary mb-2">{{resena.curso}}</span>
+                    <p class="card-text mb-0">{{resena.comentario}}</p>
+                </div>
+            </div>
+            } @empty {
+            <div class="alert alert-info">Aún no hay reseñas. ¡Sé el primero en opinar!</div>
+            }
+        </div>
+    </div>
+</section>
